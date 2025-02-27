@@ -1,7 +1,7 @@
 import googlemaps
 import json
 from django.conf import settings
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.core.serializers import serialize
@@ -192,6 +192,10 @@ def chatbot(request):
         return render(request, 'chatbot.html')
 
     return JsonResponse({'error': 'Invalid request method'}, status=405)
+
+from django.shortcuts import render, get_object_or_404
+from .models import ShopItem, UserProfile
+from django.contrib.auth.decorators import login_required
 
 @login_required
 def shopnow(request):

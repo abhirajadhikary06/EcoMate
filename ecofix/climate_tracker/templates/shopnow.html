@@ -9,7 +9,7 @@
 <ul>
     {% for item in items %}
         <li>
-            <h2>{{ item.get_name_display }}</h2>
+            <h2>{{ item.name }}</h2>
             <p>Cost: {{ item.points_cost }} points</p>
             <form method="post">
                 {% csrf_token %}

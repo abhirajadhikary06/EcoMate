@@ -3,10 +3,10 @@ from django.contrib.auth.models import User
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    points = models.PositiveIntegerField(default=0)
+    points = models.IntegerField(default=0)
 
     def __str__(self):
-        return f"{self.user.username} - {self.points} Points"
+        return self.user.username
 
 
 class UserActivity(models.Model):
@@ -72,18 +72,16 @@ class EnvironmentalObservation(models.Model):
         return f"{self.observation_type} by {self.user.username} at {self.location}"
     
 class ShopItem(models.Model):
-    ITEM_CHOICES = [
-        ("shaker_black", "Gym Shaker (Black)"),
-        ("tshirt_black", "T-Shirt (Black)"),
-        ("tshirt_white", "T-Shirt (White)"),
-        ("bag", "Bag"),
-        ("sticker", "Sticker"),
-    ]
-    name = models.CharField(max_length=50, choices=ITEM_CHOICES, unique=True)
-    points_cost = models.PositiveIntegerField()
+    name = models.CharField(max_length=255)
+    description = models.TextField()
+    points_cost = models.IntegerField()
+    image = models.ImageField(upload_to='items/')
+
+    def __str__(self):
+        return self.name
 
 class Purchase(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     item = models.ForeignKey(ShopItem, on_delete=models.CASCADE)
     date_purchased = models.DateTimeField(auto_now_add=True)
-    
+
