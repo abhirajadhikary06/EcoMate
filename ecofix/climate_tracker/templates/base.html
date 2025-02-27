@@ -146,6 +146,8 @@
                 <a class="navbar-item {% if request.resolver_match.url_name == 'map_view' %}is-active{% endif %}" href="{% url 'map_view' %}">View Environmental Map</a>
                 
                 <a class="navbar-item {% if request.resolver_match.url_name == 'all_observations' %}is-active{% endif %}" href="{% url 'all_observations' %}">View All Observations</a>
+
+                <a class="navbar-item {% if request.resolver_match.url_name == 'shopnow' %}is-active{% endif %}" href="{% url 'shopnow' %}">Shop Now</a>
             </div>
             
             <div class="navbar-end">

@@ -17,6 +17,7 @@ urlpatterns = [
     path('submit-observation/', views.submit_observation, name='submit_observation'),
     path('map-view/', views.map_view, name='map_view'),
     path('all-observations/', views.all_observations, name='all_observations'),
+    path('shopnow/', views.shopnow, name='shopnow'),
     path('chatbot/', views.chatbot, name='chatbot'),
 ]
 

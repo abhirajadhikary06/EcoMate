@@ -186,3 +186,7 @@ def chatbot(request):
         return render(request, 'chatbot.html')
 
     return JsonResponse({'error': 'Invalid request method'}, status=405)
+
+@login_required
+def shopnow(request):
+    return render(request, 'shopnow.html')
