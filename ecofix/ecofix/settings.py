@@ -94,6 +94,8 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = 'static/'
+MEDIA_URL = '/observations/'  # URL to access media files
+MEDIA_ROOT = BASE_DIR / 'observations'  # Directory where media files are stored
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

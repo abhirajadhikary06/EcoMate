@@ -63,12 +63,12 @@ class EnvironmentalObservation(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     observation_type = models.CharField(max_length=50, choices=OBSERVATION_TYPES)
-    description = models.TextField(blank=True, null=True)
-    location = models.CharField(max_length=255, blank=True, null=True)  # User-provided location
-    latitude = models.FloatField(null=True, blank=True)  # Automatically generated
-    longitude = models.FloatField(null=True, blank=True)  # Automatically generated
+    description = models.TextField()
+    location = models.CharField(max_length=255)  # User-provided location
+    latitude = models.FloatField()  # Automatically generated
+    longitude = models.FloatField()  # Automatically generated
     timestamp = models.DateTimeField(auto_now_add=True)
-    photo = models.ImageField(upload_to='observations/', blank=True, null=True)
+    photo = models.ImageField(upload_to='observations/')
 
     def __str__(self):
         return f"{self.observation_type} by {self.user.username} at {self.location}"
