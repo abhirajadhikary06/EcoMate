@@ -1,10 +1,129 @@
-<h1>Checkout</h1>
-<p>You are redeeming:</p>
-<h2>{{ purchase.item.name }}</h2>
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Checkout - EcoMate{% endblock %}
 
-<form method="post">
-    {% csrf_token %}
-    <label for="delivery_address">Delivery Address:</label><br>
-    <textarea id="delivery_address" name="delivery_address" rows="4" cols="50" required></textarea><br><br>
-    <button type="submit">Checkout Now</button>
-</form>
+{% block content %}
+    <style>
+        /* Dark Gradient Background */
+        body {
+            background: linear-gradient(135deg, rgb(0, 0, 0), rgb(15, 60, 5), rgb(0, 0, 0));
+            color: #e0e0e0;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+    
+        h1.title, p.subtitle {
+            margin: 0;
+        }
+    
+        h1.title {
+            color: #fff;
+            font-size: 2.5em;
+            padding: 30px;
+            text-align: center;
+            font-weight: bold;
+        }
+    
+        p.subtitle {
+            color: #bbb;
+            font-size: 1.3em;
+            padding: 0 20px 30px;
+            text-align: center;
+        }
+    
+        /* Form Styling */
+        .box {
+            background: linear-gradient(135deg, #1b1b1b, #35424a);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-width: 600px;
+            margin: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    
+        .field {
+            margin-bottom: 20px;
+            width: 100%;
+        }
+    
+        .label {
+            color: #e0e0e0;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+    
+        .control input,
+        .control select,
+        .control textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #bbb;
+            font-size: 1.1em;
+            background-color: #2c2c2c;
+            color: #fff;
+        }
+    
+        .control input:focus,
+        .control select:focus,
+        .control textarea:focus {
+            outline: none;
+            border-color: #fdd835;
+        }
+    
+        .button {
+            background: linear-gradient(135deg, #fdd835, #fbc02d);
+            color:rgb(255, 255, 255);
+            border-radius: 5px;
+            padding: 8px 15px;
+            font-size: 1.2em;
+            width: 100%;
+            margin-top: 20px;
+            text-align: center;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+    
+        .button:hover {
+            transform: scale(1.1);
+            background-color: #fbc02d;
+        }
+    </style>
+
+    <h1 class="title">Checkout</h1>
+    <p>You are redeeming:</p>
+    <h2>{{ purchase.item.name }}</h2>
+
+    <form method="post" class="box">
+        {% csrf_token %}
+        <div class="field">
+            <label class="label" for="delivery_address">Delivery Address:</label>
+            <div class="control">
+                <textarea id="delivery_address" name="delivery_address" rows="4" cols="50" required></textarea>
+            </div>
+        </div>
+        <button class="button" type="submit">Checkout Now</button>
+    </form>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.querySelector('form');
+            form.addEventListener('submit', function(event) {
+                const deliveryAddress = document.getElementById('delivery_address').value;
+                if (!deliveryAddress) {
+                    alert('Please enter a delivery address.');
+                    event.preventDefault();
+                }
+            });
+        });
+    </script>
+{% endblock %}

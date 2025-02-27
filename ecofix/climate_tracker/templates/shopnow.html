@@ -1,20 +1,125 @@
-<h1>EcoMate Shop</h1>
-<p>Your Points: {{ user_points }}</p>
+{% extends "base.html" %}
+{% load static %}
+{% block title %}EcoMate Shop{% endblock %}
 
-{% if message %}
-    <p>{{ message }}</p>
-{% endif %}
+{% block content %}
+    <style>
+        /* Dark Gradient Background */
+        body {
+            background: linear-gradient(135deg, rgb(0, 0, 0), rgb(15, 60, 5), rgb(0, 0, 0));
+            color: #e0e0e0;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-<ul>
-    {% for item in items %}
-        <li>
-            <h2>{{ item.name }}</h2>
-            <p>Cost: {{ item.points_cost }} points</p>
-            <form method="post">
-                {% csrf_token %}
-                <input type="hidden" name="item_id" value="{{ item.id }}">
-                <button type="submit">Redeem</button>
-            </form>
-        </li>
-    {% endfor %}
-</ul>
+        h1.title, p.subtitle {
+            margin: 0;
+        }
+
+        h1.title {
+            color: #fff;
+            font-size: 2.5em;
+            padding: 30px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        p.subtitle {
+            color: #bbb;
+            font-size: 1.3em;
+            padding: 0 20px 30px;
+            text-align: center;
+        }
+
+        /* Content Styling */
+        .shop-container {
+            background: linear-gradient(135deg, #1b1b1b, #35424a);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-width: 800px;
+            margin: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .shop-item {
+            background: #2c2c2c;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 10px;
+            width: calc(50% - 40px); /* Adjust width to fit two items per row */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .shop-item img {
+            max-width: 200px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .shop-item h2 {
+            color: #fdd835;
+            font-size: 1.5em;
+            margin: 10px 0;
+        }
+
+        .shop-item p {
+            color: #bbb;
+            font-size: 1.2em;
+            margin: 5px 0;
+        }
+
+        .shop-item form {
+            margin-top: 10px;
+        }
+
+        .shop-item button {
+            background: linear-gradient(135deg, #fdd835, #fbc02d);
+            color: #1b1b1b;
+            border-radius: 5px;
+            padding: 8px 15px;
+            font-size: 1.2em;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .shop-item button:hover {
+            transform: scale(1.1);
+            background-color: #fbc02d;
+        }
+    </style>
+
+    <h1 class="title">EcoMate Shop</h1>
+    <p>Your Points: {{ user_points }}</p>
+
+    {% if message %}
+        <p>{{ message }}</p>
+    {% endif %}
+
+    <div class="shop-container">
+        {% for item in items %}
+            <div class="shop-item">
+                <img src="{{ item.image.url }}" alt="{{ item.name }}">
+                <h2>{{ item.name }}</h2>
+                <p>Cost: {{ item.points_cost }} points</p>
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="item_id" value="{{ item.id }}">
+                    <button type="submit">Redeem</button>
+                </form>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
