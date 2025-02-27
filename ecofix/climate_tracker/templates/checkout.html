@@ -1,7 +1,10 @@
-<!-- checkout.html -->
 <h1>Checkout</h1>
-<p>Congratulations! You've redeemed:</p>
-<h2>{{ purchase.item.get_name_display }}</h2>
-<p>Enjoy your reward! 🎉</p>
+<p>You are redeeming:</p>
+<h2>{{ purchase.item.name }}</h2>
 
-<a href="{% url 'shopnow' %}">Back to Shop</a>
+<form method="post">
+    {% csrf_token %}
+    <label for="delivery_address">Delivery Address:</label><br>
+    <textarea id="delivery_address" name="delivery_address" rows="4" cols="50" required></textarea><br><br>
+    <button type="submit">Checkout Now</button>
+</form>

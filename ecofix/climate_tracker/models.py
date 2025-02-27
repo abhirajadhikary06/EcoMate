@@ -84,4 +84,7 @@ class Purchase(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     item = models.ForeignKey(ShopItem, on_delete=models.CASCADE)
     date_purchased = models.DateTimeField(auto_now_add=True)
+    delivery_address = models.TextField(blank=True, null=True)  # Address for delivery
 
+    def __str__(self):
+        return f"{self.user.username} purchased {self.item.name}"

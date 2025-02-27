@@ -201,25 +201,29 @@ from django.contrib.auth.decorators import login_required
 def shopnow(request):
     user_profile, created = UserProfile.objects.get_or_create(user=request.user)
     items = ShopItem.objects.all()
-    
+
     if request.method == 'POST':
         item_id = request.POST.get('item_id')
         try:
             item = ShopItem.objects.get(id=item_id)
-            
+
             if user_profile.points >= item.points_cost:
                 # Deduct points
                 user_profile.points -= item.points_cost
                 user_profile.save()
-                
-                message = f"Successfully redeemed {item.name}!"
+
+                # Create a purchase record
+                purchase = Purchase.objects.create(user=request.user, item=item)
+
+                # Redirect to checkout page
+                return redirect('checkout', purchase_id=purchase.id)
             else:
                 message = "Not enough points to redeem this item."
         except ShopItem.DoesNotExist:
             message = "Item not found."
 
         return render(request, 'shopnow.html', {'items': items, 'user_points': user_profile.points, 'message': message})
-    
+
     return render(request, 'shopnow.html', {'items': items, 'user_points': user_profile.points})
 
 @login_required
@@ -228,5 +232,15 @@ def checkout(request, purchase_id):
         purchase = Purchase.objects.get(id=purchase_id, user=request.user)
     except Purchase.DoesNotExist:
         return redirect('shopnow')  # If purchase not found, go back to shop
+
+    if request.method == 'POST':
+        delivery_address = request.POST.get('delivery_address')
+        if delivery_address:
+            # Save the delivery address
+            purchase.delivery_address = delivery_address
+            purchase.save()
+
+            # Display a confirmation message
+            return render(request, 'confirmation.html', {'address': delivery_address})
 
     return render(request, 'checkout.html', {'purchase': purchase})
