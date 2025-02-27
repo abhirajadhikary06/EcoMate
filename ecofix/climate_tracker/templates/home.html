@@ -1,0 +1,173 @@
+<!-- templates/home.html -->
+{% extends "base.html" %}
+
+{% block title %}Dashboard - EcoMate{% endblock %}
+
+{% block content %} 
+    <style>
+
+        /* Dark Gradient Background */
+        body {
+            background: linear-gradient(135deg, rgb(0, 0, 0), rgb(15, 60, 5), rgb(0, 0, 0));
+            color: #e0e0e0;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+    
+        h1.title, p.subtitle {
+            margin: 0;
+        }
+    
+        h1.title {
+            color: #fff;
+            font-size: 2.5em;
+            padding: 30px;
+            text-align: center;
+            font-weight: bold;
+        }
+    
+        p.subtitle {
+            color: #bbb;
+            font-size: 1.3em;
+            padding: 0 20px 30px;
+            text-align: center;
+        }
+    
+        /* Button Styles */
+        .buttons {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 50px;
+        }
+    
+        .button {
+            display: flex;  /* Make the button a flex container */
+            justify-content: center;  /* Horizontally center the text */
+            align-items: center;  /* Vertically center the text */
+            padding: 50px 50px;  /* Increased padding for larger buttons */
+            border-radius: 10px;  /* Rounded corners */
+            color: white;
+            font-size: 22px;  /* Font size for better visibility */
+            text-align: center;
+            text-decoration: none;
+            display: inline-flex;  /* Use inline-flex instead of inline-block for flex behavior */
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            min-width: 250px;  /* Set a minimum width for better button size consistency */
+            min-height: 120px;  /* Set a minimum height for consistent button height */
+        }
+    
+        /* Button Gradient Colors */
+        .button.is-primary {
+            background: linear-gradient(135deg, #4a90e2, #357abd);
+        }
+    
+        .button.is-info {
+            background: linear-gradient(135deg, #29b6f6, #0288d1);
+        }
+    
+        .button.is-warning {
+            background: linear-gradient(135deg, #ffb74d, #ff9800);
+        }
+    
+        .button.is-link {
+            background: linear-gradient(135deg, #81c784, #388e3c);
+        }
+    
+        .button:hover {
+            transform: scale(1.1);  /* Slightly larger hover effect for emphasis */
+            background-color: #333;
+        }
+    
+        /* Emoji Integration */
+        h1.title::before {
+            content: "🌍 ";
+        }
+    
+        p.subtitle::before {
+            content: "🌱 ";
+        }
+    
+        .button.is-primary::before {
+            content: "🌍 ";
+        }
+    
+        .button.is-info::before {
+            content: "💡 ";
+        }
+    
+        .button.is-warning::before {
+            content: "📊 ";
+        }
+    
+        .button.is-link::before {
+            content: "🗺️ ";
+        }
+        
+        /* Additional Emojis outside the buttons */
+        .emoji {
+            font-size: 1.5em;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        /* Bottom-Right Corner Button */
+        .floating-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;  /* Set width for circular shape */
+            height: 60px;  /* Set height for circular shape */
+            border-radius: 50%;  /* Circular button */
+            background: transparent;  /* Transparent background */
+            border: 2px solid #00ff00;  /* Green border */
+            box-shadow: 0 0 10px #00ff00;  /* Green glowing effect */
+            color: white;
+            font-size: 1.5em;
+            text-decoration: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .floating-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px #00ff00;  /* Enhanced green glowing effect on hover */
+        }
+    </style>
+</head>
+<body>
+
+    <h1 class="title">Welcome, {{ user.username }}! <span class="emoji">👋</span></h1>
+    <p class="subtitle">This is your dashboard. Let's take action! <span class="emoji">🌱</span></p>
+
+    <div class="buttons">
+        <!-- Carbon Footprint Tracker -->
+        <a href="{% url 'track_carbon' %}" class="button is-primary">Track Carbon Footprint</a>
+
+        <!-- Sustainability Score -->
+        <a href="{% url 'calculate_sustainability' %}" class="button is-info">View Sustainability Score</a>
+        <a href="{% url 'all_observations' %}" class="button is-info">View All Observations</a>
+
+        <!-- Crowdsourced Environmental Monitoring -->
+        <a href="{% url 'submit_observation' %}" class="button is-warning">Submit an Observation</a>
+        <a href="{% url 'map_view' %}" class="button is-link">View Environmental Map</a>
+    </div>
+
+    <!-- Additional Emojis Outside Buttons -->
+    <div class="emoji">
+        <span>🌏</span>
+        <span>🔋</span>
+        <span>♻️</span>
+    </div>
+    <a href="{% url 'chatbot' %}" class="floating-button">🕹️</a>
+
+{% endblock %}

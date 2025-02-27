@@ -1,0 +1,290 @@
+{% extends "base.html" %}
+
+{% block title %}Welcome to EcoMate, {{ user_name }}{% endblock %}
+
+{% block content %}
+
+<head>
+    <!-- Add this in your base.html if not already included -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<style>
+    /* Reset body and html for full height */
+    body, html {
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        background-color: #121212; /* Dark background */
+        color: #fff; /* Light text for contrast */
+        font-family: 'Arial', sans-serif;
+    }
+    
+    /* Main container to structure the layout */
+    .main-container {
+        display: flex;
+        flex-direction: column;
+        height: 100vh; /* Full viewport height */
+    }
+    
+    .gradient-text {
+        background: white;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        color: transparent;
+    }
+    
+    /* General header styling */
+    .header {
+        padding: 15px 20px;
+        text-align: center;
+        font-size: 35px;
+        font-weight: bold;
+    }
+    
+    /* Chat container to hold messages */
+    /* Hide scrollbar while still allowing scroll functionality */
+    .chat-container {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+        overflow-y: auto; /* Enables scrolling */
+        background-color: #121212;
+        max-height: calc(100vh - 180px);
+        
+        /* Hide scrollbar for all browsers */
+        scrollbar-width: none;  /* Firefox */
+        -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    }
+    
+    /* Chat box styling */
+    #chat-box {
+        background: #1e1e1e;
+        border-radius: 15px;
+        padding: 20px;
+        overflow-y: auto;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        max-height: calc(100vh - 250px); /* Adjusting chat box height */
+        min-height : 60vh;
+    }
+    
+    /* Individual message styling */
+    .message {
+        background-color: #2c2c2c;
+        padding: 12px 18px;
+        border-radius: 20px;
+        width: fit-content;
+        max-width: 80%;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    }
+    
+    /* Differentiate user and bot messages */
+    .user-message {
+        align-self: flex-end;
+        background-color: #0b3d0b;  /* Dark green background */
+        color: #ffffff;  /* White text for contrast */
+        box-shadow: 0 2px 6px rgba(0, 100, 0, 0.5); /* Green shadow effect */
+    }
+    
+    .bot-message {
+        align-self: flex-start;
+        background-color: #2c2c2c;
+    }
+    /* Input area at the bottom */
+    .input-area {
+        display: flex;
+        padding: 15px 20px;
+        background: transparent;
+        border-top: 1px solid #333;
+        gap: 10px;
+        align-items: center;
+    }
+    
+    /* Input field styling */
+    .input-area input {
+        flex: 1;
+        padding: 12px 20px;
+        border: 1px solid #444;
+        border-radius: 25px;
+        background-color: #2c2c2c;
+        color: #fff;
+        font-size: 16px;
+        outline: none;
+    }
+    
+    /* Placeholder text color */
+    .input-area input::placeholder {
+        color: #888;
+    }
+
+    /* Spinner animation for loading effect */
+    .spinner {
+        border: 4px solid rgba(255, 255, 255, 0.1); /* Light border */
+        border-top: 4px solid #4a90e2; /* Blue color for the spinning part */
+        border-radius: 50%;
+        width: 25px;
+        height: 25px;
+        animation: spin 1s linear infinite; /* Infinite spin animation */
+        margin: 10px auto; /* Center the spinner */
+    }
+    
+    /* Keyframes for the spinner rotation */
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    
+    /* Submit button styling */
+    .input-area button {
+        background: #0b3d0b !important;  /* Dark green color */
+        border: none;
+        border-radius: 20px;
+        width: 80px;
+        height: 45px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0, 100, 0, 0.5); /* Soft green glow */
+        color: #ffffff; /* Ensure the icon is white */
+    }
+
+.input-area button i {
+    font-size: 20px;
+    color: #ffffff !important; /* Make sure the icon color is white */
+}
+    
+/* Button hover effect with stronger glow */
+.input-area button:hover {
+    background: #0a330a !important; /* Slightly darker green on hover */
+    box-shadow: 0 6px 20px rgba(0, 128, 0, 0.8); /* Brighter green glow on hover */
+    transform: scale(1.1); /* Slightly increase size on hover */
+}
+
+    /* Scrollbar styling for chat container */
+    .chat-container::-webkit-scrollbar {
+        display : none;
+    }
+
+    .chat-container::-webkit-scrollbar-thumb {
+        background-color: #4a4a4a;
+        border-radius: 10px;
+    }
+
+    .chat-container::-webkit-scrollbar-thumb:hover {
+        background-color: #6a6a6a;
+    }
+</style>
+
+<div class="header">
+    🤖 <span class="gradient-text">Welcome, {{ user.username }}!</span>
+</div>
+
+<div class="main-container">
+    <div class="chat-container">
+        <div id="chat-box">
+            <div class="message bot-message">✨ Hello, how can I assist you today?</div>
+        </div>
+
+        <!-- Input Area -->
+        <div class="input-area">
+            <input type="text" id="user-input" placeholder="Ask EcoMate...">
+            <button id="send-btn" class="button is-primary"><i class="fa-regular fa-paper-plane"></i></button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const chatBox = document.getElementById('chat-box');
+    const userInput = document.getElementById('user-input');
+    const sendBtn = document.getElementById('send-btn');
+
+// Append Message
+function appendMessage(sender, message) {
+    const messageElement = document.createElement('div');
+    messageElement.classList.add('message', sender === 'You' ? 'user-message' : 'bot-message');
+    messageElement.textContent = message;
+    chatBox.appendChild(messageElement);
+    
+    // Enable auto-scroll to the latest message
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+function typeWriterEffect(element, text, speed = 5) {
+    let index = 0;
+    element.textContent = '';  // Clear the previous text
+    
+    const interval = setInterval(() => {
+        if (index < text.length) {
+            element.textContent += text.charAt(index);
+            index++;
+            
+            // Auto-scroll while typing
+            chatBox.scrollTop = chatBox.scrollHeight;
+        } else {
+            clearInterval(interval);
+        }
+    }, speed);
+}
+
+// Send Message Function
+async function sendMessage() {
+    const message = userInput.value.trim();
+    if (!message) return;
+
+    appendMessage('You', message);
+    userInput.value = '';
+
+    // Create a container for the bot message and spinner
+    const botMessageElement = document.createElement('div');
+    botMessageElement.classList.add('message', 'bot-message');
+    
+    // Add spinner while waiting for response
+    const spinner = document.createElement('div');
+    spinner.classList.add('spinner');
+    botMessageElement.appendChild(spinner);
+    chatBox.appendChild(botMessageElement);
+
+    // Scroll to bottom to keep spinner visible
+    chatBox.scrollTop = chatBox.scrollHeight;
+
+    try {
+        const response = await fetch('/chatbot/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: `message=${encodeURIComponent(message)}`
+        });
+
+        const data = await response.json();
+
+        // Remove the spinner before showing the actual response
+        botMessageElement.removeChild(spinner);
+
+        if (data.response) {
+            typeWriterEffect(botMessageElement, data.response);
+        } else if (data.error) {
+            typeWriterEffect(botMessageElement, `Error: ${data.error}`);
+        }
+    } catch (error) {
+        botMessageElement.removeChild(spinner);
+        typeWriterEffect(botMessageElement, 'An error occurred while processing your request.');
+    }
+}
+
+    // Event Listeners
+    sendBtn.addEventListener('click', sendMessage);
+    userInput.addEventListener('keypress', (event) => {
+        if (event.key === 'Enter') {
+            sendMessage();
+        }
+    });
+</script>
+{% endblock %}

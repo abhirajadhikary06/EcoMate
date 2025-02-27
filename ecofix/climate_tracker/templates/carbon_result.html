@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block title %}Carbon Footprint Result - EcoMate{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        background: linear-gradient(135deg, rgb(0, 0, 0), rgb(15, 60, 5), rgb(0, 0, 0));
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+    }
+
+    .content-container {
+        max-width: 800px;
+        padding: 2rem;
+        background: linear-gradient(135deg, #1b1b1b, #35424a);
+        border-radius: 15px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    h1.title {
+            color: #fff;
+            font-size: 2.5em;
+            padding: 30px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+    .box {
+        background: linear-gradient(135deg, #263238, #37474F);  /* Dark Grey */
+        padding: 2rem;
+        border-radius: 15px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+        border: 2px solid #81C784;
+        color: #E0E0E0;  /* Light Grey for text */
+        font-size: 1.2rem;
+        line-height: 1.8;
+    }
+
+    strong {
+        color: #FFFFFF;  /* Bright white for emphasis */
+    }
+
+    .button.is-primary {
+        display: inline-block;
+        margin-top: 1.5rem;
+        background-color: #81C784;  /* Light Green */
+        color: #1b1b1b;
+        padding: 0.75rem 2rem;
+        border-radius: 8px;
+        font-size: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+        text-align: center;
+    }
+
+    .button.is-primary:hover {
+        background-color: #66BB6A;  /* Slightly brighter green on hover */
+    }
+
+    @media (max-width: 768px) {
+        .content-container {
+            margin: 1rem;
+        }
+
+        .title {
+            font-size: 2rem;
+        }
+
+        .box {
+            font-size: 1rem;
+        }
+    }
+</style>
+
+<h1 class="title">👣 Your Carbon Footprint</h1>
+<div class="content-container">
+    <!-- Box with footprint details -->
+    <div class="box">
+        <p>Your estimated carbon footprint is <strong>{{ footprint }} kg CO2e</strong>.</p>
+        <p>Thank you for tracking your impact! You can now take steps to reduce your footprint.</p>
+        <a href="{% url 'home' %}" class="button is-primary">Return to Dashboard</a>
+    </div>
+</div>
+{% endblock %}

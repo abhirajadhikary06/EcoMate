@@ -1,0 +1,181 @@
+{% extends "base.html" %}
+
+{% block title %}Sustainability Score - EcoMate{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        background: linear-gradient(135deg, rgb(0, 0, 0), rgb(15, 60, 5), rgb(0, 0, 0));
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 2rem auto;
+        padding: 2rem;
+        background: transparent;
+        border-radius: 15px;
+        color: #E0E0E0;
+    }
+
+    h1.title {
+            color: #fff;
+            font-size: 2.5em;
+            padding: 30px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+    .box {
+        background: linear-gradient(135deg, #263238, #37474F);
+        padding: 1.5rem;
+        border-radius: 15px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+        border: 2px solid #81C784;
+        margin-bottom: 8rem;
+    }
+
+    .subtitle {
+        color: #81C784;
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    li {
+        background-color: rgba(56, 142, 60, 0.2);
+        margin: 0.5rem 0;
+        padding: 0.75rem 1rem;
+        border-radius: 8px;
+        border-left: 5px solid #81C784;
+        font-size: 1.1rem;
+        color: #E0E0E0;
+    }
+
+    /* Highlighting Suggestions with Brighter Colors */
+    .box ul li:nth-child(odd) {
+        background-color: rgba(129, 199, 132, 0.3);  /* Lighter green for odd items */
+        border-left: 5px solid #A5D6A7;
+        color: #F1F8E9;  /* Bright text */
+    }
+
+    .box ul li:nth-child(even) {
+        background-color: rgba(76, 175, 80, 0.3);  /* Slightly darker green for even items */
+        border-left: 5px solid #81C784;
+        color: #E8F5E9;  /* Bright text */
+    }
+
+    #historicalChart {
+        background: linear-gradient(135deg, #1b1b1b, #35424a);
+        border-radius: 15px;
+        padding: 1rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+        margin-top: 2rem;
+    }
+
+    @media (max-width: 768px) {
+        .container {
+            margin: 1rem;
+        }
+
+        .title {
+            font-size: 2rem;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+        }
+
+        li {
+            font-size: 1rem;
+        }
+    }
+</style>
+<h1 class="title">💯 Your Sustainability Score</h1>
+<div class="container">
+
+    <div class="box">
+        <h2 class="subtitle"><b>Score:</b> {{ latest_result.score }}</h2>
+
+        {% if latest_result.breakdown %}
+        <h3 class="subtitle">Breakdown</h3>
+        <ul>
+            {% for item in latest_result.breakdown %}
+            <li>{{ item.category }}: {{ item.value }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        {% if latest_result.suggestions %}
+        <h3 class="subtitle">Suggestions for Improvement</h3>
+        <ul>
+            {% for suggestion in latest_result.suggestions %}
+            <li>{{ suggestion }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+
+    <!-- Chart Container -->
+    <div id="historicalChart"></div>
+</div>
+
+<!-- Load Google Charts Library -->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<script>
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        const historicalData = JSON.parse('{{ chart_data|safe }}');
+        const maxPoints = 30;
+        if (historicalData.length > maxPoints) {
+            historicalData.splice(0, historicalData.length - maxPoints);
+        }
+
+        const chartData = [['Date', 'Energy Usage (kWh/day)', 'Sustainability Score']];
+        historicalData.forEach(item => {
+            chartData.push([item.date, item.energy_usage, item.score]);
+        });
+
+        const data = google.visualization.arrayToDataTable(chartData);
+
+        const options = {
+    title: 'Energy Usage vs Sustainability Score',
+    titleTextStyle: { color: '#FFFFFF' },
+    backgroundColor: 'transparent',  // Transparent background
+    curveType: 'function',
+    legend: { position: 'top', textStyle: { color: '#E0E0E0' } },
+    height: 400,
+    chartArea: { width: '80%', height: '70%' },
+    hAxis: {
+        title: 'Date',
+        textStyle: { color: '#E0E0E0' },
+        titleTextStyle: { color: '#E0E0E0' },
+        slantedText: true,
+        slantedTextAngle: 30,
+        gridlines: { color: 'transparent' }  // Removes horizontal grid lines
+    },
+    vAxis: {
+        title: 'Values',
+        textStyle: { color: '#E0E0E0' },
+        titleTextStyle: { color: '#E0E0E0' },
+        minValue: 0,
+        gridlines: { color: 'transparent' }  // Removes vertical grid lines
+    },
+    series: {
+        0: { color: '#fbc02d' },  // Energy Usage (Yellow)
+        1: { color: '#388e3c' }   // Sustainability Score (Green)
+    }
+};
+
+        const chart = new google.visualization.LineChart(document.getElementById('historicalChart'));
+        chart.draw(data, options);
+    }
+    
+</script>
+{% endblock %}

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}EcoMate{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <style>
+        /* Dark Theme Navbar Styling */
+        .navbar {
+            position: fixed;  /* Fix navbar to viewport */
+            top: 20px;       /* Distance from top of viewport */
+            left: 50%;      /* Center horizontally */
+            transform: translateX(-50%);  /* Offset by half width for true centering */
+            width: 95%;     /* Width with some margin on sides */
+            max-width: 1200px;
+            background: linear-gradient(135deg, #1b1b1b, #35424a);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            z-index: 1000;  /* Ensure navbar stays above other content */
+        }
+        
+        /* Adjust main content to prevent overlap with floating navbar */
+        .section {
+            padding-top: 100px;  /* Add extra padding to account for floating navbar */
+            display: flex;
+            justify-content: center;
+        }
+        
+        .container {
+            max-width: 1200px;
+        }
+
+        /* Rest of your existing navbar styles */
+        .navbar-item.is-active {
+            border-bottom: 3px solid #81c784;
+            color: #81c784 !important;
+            background-color: rgba(129, 199, 132, 0.1);
+        }
+    
+        .navbar-item, .navbar-link {
+            color: #e0e0e0 !important;
+            font-weight: bold;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+    
+        .navbar-item:hover, .navbar-link:hover {
+            background-color: rgba(129, 199, 132, 0.2);
+            color: #81c784 !important;
+        }
+
+        .last:hover {
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+    
+        .navbar-brand strong {
+            color: #81c784;
+            font-size: 1.5em;
+        }
+    
+        .navbar-button-warning {
+            background-color: #fdd835;
+            color: #1b1b1b !important;
+            border-radius: 5px;
+            padding: 8px 15px;
+            margin-left: 10px;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+    
+        .navbar-button-warning:hover {
+            background-color: #fbc02d;
+            color: #000 !important;
+        }
+    
+        .navbar-button-link {
+            background-color: #64b5f6;
+            color: #1b1b1b !important;
+            border-radius: 5px;
+            padding: 8px 15px;
+            margin-left: 10px;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+    
+        .navbar-button-link:hover {
+            background-color: #42a5f5;
+            color: #000 !important;
+        }
+    
+        .navbar-menu {
+            background-color: transparent;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+    
+        @media (max-width: 1024px) {
+            .navbar-menu {
+                background: linear-gradient(135deg, #1b1b1b, #35424a);
+            }
+            
+            /* Adjust navbar position on mobile */
+            .navbar {
+                width: 100%;
+                top: 0;
+                border-radius: 0;
+            }
+            
+            /* Adjust content padding for mobile */
+            .section {
+                padding-top: 80px;
+            }
+        }
+
+        .navbar-end {
+            display: flex;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="{% url 'home' %}">
+                <strong>EcoMate</strong>
+            </a>
+
+            <!-- Hamburger Menu for Mobile -->
+            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarMenu">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+
+        <div id="navbarMenu" class="navbar-menu">
+            <div class="navbar-start">
+                <a class="navbar-item {% if request.resolver_match.url_name == 'track_carbon' %}is-active{% endif %}" href="{% url 'track_carbon' %}">Track Carbon Footprint</a>
+                
+                <a class="navbar-item {% if request.resolver_match.url_name == 'calculate_sustainability' %}is-active{% endif %}" href="{% url 'calculate_sustainability' %}">Sustainability Score</a>
+                
+                <a class="navbar-item {% if request.resolver_match.url_name == 'submit_observation' %}is-active{% endif %}" href="{% url 'submit_observation' %}">Submit an Observation</a>
+                
+                <a class="navbar-item {% if request.resolver_match.url_name == 'map_view' %}is-active{% endif %}" href="{% url 'map_view' %}">View Environmental Map</a>
+                
+                <a class="navbar-item {% if request.resolver_match.url_name == 'all_observations' %}is-active{% endif %}" href="{% url 'all_observations' %}">View All Observations</a>
+            </div>
+            
+            <div class="navbar-end">
+                {% if user.is_authenticated %}
+                    <a class="navbar-item last {% if request.resolver_match.url_name == 'logout' %}is-active{% endif %}" href="{% url 'logout' %}">Logout</a>
+                {% else %}
+                    <a class="navbar-item {% if request.resolver_match.url_name == 'login' %}is-active{% endif %}" href="{% url 'login' %}">Login</a>
+                    <!--<a class="navbar-item navbar-button-link {% if request.resolver_match.url_name == 'register' %}is-active{% endif %}" 
+   href="{% url 'register' %}">
+   Register
+</a> -->
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <section class="section">
+        <div class="container">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </section>
+
+    <!-- Bulma Navbar Burger Script for Mobile -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+            if ($navbarBurgers.length > 0) {
+                $navbarBurgers.forEach(el => {
+                    el.addEventListener('click', () => {
+                        const target = el.dataset.target;
+                        const $target = document.getElementById(target);
+
+                        el.classList.toggle('is-active');
+                        $target.classList.toggle('is-active');
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>

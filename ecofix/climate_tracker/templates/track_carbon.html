@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Track Carbon Footprint - EcoMate{% endblock %}
+
+{% block content %}
+    <style>
+        /* Dark Gradient Background */
+        body {
+            background: linear-gradient(135deg, rgb(0, 0, 0), rgb(15, 60, 5), rgb(0, 0, 0));
+            color: #e0e0e0;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+    
+        h1.title, p.subtitle {
+            margin: 0;
+        }
+    
+        h1.title {
+            color: #fff;
+            font-size: 2.5em;
+            padding: 30px;
+            text-align: center;
+            font-weight: bold;
+        }
+    
+        p.subtitle {
+            color: #bbb;
+            font-size: 1.3em;
+            padding: 0 20px 30px;
+            text-align: center;
+        }
+    
+        /* Form Styling */
+        .box {
+            background: linear-gradient(135deg, #1b1b1b, #35424a);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-width: 600px;
+            margin: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    
+        .field {
+            margin-bottom: 20px;
+            width: 100%;
+        }
+    
+        .label {
+            color: #e0e0e0;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+    
+        .control input,
+        .control select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #bbb;
+            font-size: 1.1em;
+            background-color: #2c2c2c;
+            color: #fff;
+        }
+    
+        .control input:focus,
+        .control select:focus {
+            outline: none;
+            border-color: #fdd835;
+        }
+    
+        .button {
+            background: linear-gradient(135deg, #fdd835, #fbc02d);
+            color: #1b1b1b;
+            border-radius: 5px;
+            padding: 8px 15px;
+            font-size: 1.2em;
+            width: 100%;
+            margin-top: 20px;
+            text-align: center;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+    
+        .button:hover {
+            transform: scale(1.1);
+            background-color: #fbc02d;
+        }
+
+        .button-green {
+            background: linear-gradient(135deg, #4caf50, #388e3c);
+            color: #1b1b1b;
+            border-radius: 5px;
+            border-color: #4caf50;
+            padding: 8px 15px;
+            font-size: 1.2em;
+            width: 100%;
+            margin-top: 20px;
+            text-align: center;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .button-green:hover {
+            transform: scale(1.1);
+            background-color: #388e3c;
+        }
+    
+        /* Emoji Integration */
+        h1.title::before {
+            content: "🌍 ";
+        }
+    
+        p.subtitle::before {
+            content: "🌱 ";
+        }
+    </style>
+</head>
+<body>
+
+    <h1 class="title">Track Your Carbon Footprint</h1>
+<form method="post" class="box">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    <div class="field">
+        <label class="label">{{ form.transportation.label }}</label>
+        <div class="control">
+            {{ form.transportation }}
+            {% if form.transportation.errors %}
+                <p class="help is-danger">{{ form.transportation.errors.0 }}</p>
+            {% endif %}
+        </div>
+    </div>
+    <div class="field">
+        <label class="label">{{ form.diet.label }}</label>
+        <div class="control">
+            {{ form.diet }}
+            {% if form.diet.errors %}
+                <p class="help is-danger">{{ form.diet.errors.0 }}</p>
+            {% endif %}
+        </div>
+    </div>
+    <div class="field">
+        <label class="label">{{ form.energy_usage.label }}</label>
+        <div class="control">
+            {{ form.energy_usage }}
+            <p class="help">{{ form.energy_usage.help_text }}</p>
+            {% if form.energy_usage.errors %}
+                <p class="help is-danger">{{ form.energy_usage.errors.0 }}</p>
+            {% endif %}
+        </div>
+    </div>
+    <button class="button is-primary" type="submit" style="color: black;">Calculate Carbon Footprint</button>
+    <button class="button-green" type="button" onclick="window.location.href='{% url "calculate_sustainability" %}'">
+        Check Sustainability Score
+    </button>
+</form>
+
+{% endblock %}

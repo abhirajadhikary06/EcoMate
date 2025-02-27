@@ -1,0 +1,157 @@
+<!-- templates/register.html -->
+{% extends "base.html" %}
+
+{% block title %}Register - EcoMate{% endblock %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - EcoVision</title>
+    <link rel="stylesheet" href="path_to_your_stylesheet.css">
+    <style>
+        /* Dark Gradient Background */
+        body {
+            background: linear-gradient(135deg, rgb(0, 0, 0), rgb(15, 60, 5), rgb(0, 0, 0));
+            color: #e0e0e0;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        h1.title {
+            color: #fff;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        form.box {
+            background: linear-gradient(135deg, #1b1b1b, #35424a);
+            padding: 20px 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            width: 95%;  /* Expand the form width to 95% of the viewport */
+            max-width: 1200px;  /* Increase the max-width to make it wider on large screens */
+            margin: 0 auto;  /* Center the form horizontally */
+        }
+
+        .box label {
+            color: #e0e0e0;
+            margin-bottom: 5px;
+            font-size: 1em;
+        }
+
+        .box input {
+            background-color: #2c2c2c;
+            border: 1px solid #555;
+            border-radius: 5px;
+            padding: 12px;
+            color: #e0e0e0;
+            width: 100%;  /* Full width inputs */
+            margin-bottom: 20px;
+            font-size: 1em;
+            box-sizing: border-box;
+        }
+
+        button.button {
+            background: linear-gradient(135deg, #81c784, #388e3c);
+            border: none;
+            padding: 15px;
+            color: white;
+            font-size: 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            width: 100%;
+        }
+
+        button.button:hover {
+            transform: scale(1.05);
+            background-color: #2e7d32;
+        }
+
+        p.mt-4 {
+            color: #e0e0e0;
+            margin-top: 15px;
+            text-align: center;
+            font-size: 0.9em;
+        }
+
+        p.mt-4 a {
+            color: #81c784;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        p.mt-4 a:hover {
+            text-decoration: underline;
+        }
+
+        /* Emoji Integration */
+        h1.title::before {
+            content: "📝 ";
+        }
+
+        button.button::before {
+            content: "🚀 ";
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 800px) {
+            form.box {
+                width: 95%;
+            }
+
+            .box input, button.button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1 class="title">Register</h1>
+
+    <form method="post" class="box">
+        {% csrf_token %}
+        <div class="field">
+            <label class="label">Username</label>
+            <div class="control">
+                {{ form.username }}
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">Email</label>
+            <div class="control">
+                {{ form.email }}
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">Password</label>
+            <div class="control">
+                {{ form.password1 }}
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">Confirm Password</label>
+            <div class="control">
+                {{ form.password2 }}
+            </div>
+        </div>
+        <button class="button" type="submit">Register</button>
+    </form>
+
+    <p class="mt-4">Already have an account? <a href="{% url 'login' %}">Login here</a>.</p>
+
+</body>
+</html>
+{% endblock %}

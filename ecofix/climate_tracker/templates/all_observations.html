@@ -1,0 +1,182 @@
+{% extends "base.html" %}
+
+{% block title %}All Observations - EcoMate{% endblock %}
+
+{% block content %}
+<style>
+    /* Background and Text Colors */
+    html, body {
+        margin: 0;
+        padding: 0;
+        min-height : 100vh;
+    }
+
+    .navbar {
+        margin-top: 0;  /* Ensure the navbar starts at the very top */
+    }
+    body {
+        background: linear-gradient(135deg, rgb(0, 0, 0), rgb(15, 60, 5), rgb(0, 0, 0));
+        color: #e0e0e0;
+        font-family: Arial, sans-serif;
+    }
+
+    h1.title {
+        color: #fff;
+        font-size: 2.5em;
+        padding: 30px;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .field {
+        display: flex;
+        justify-content: center; /* Centers the content horizontally */
+        align-items: center; /* Aligns items vertically */
+        margin-bottom: 20px;
+    }
+    
+    .control form {
+        display: flex;
+        gap: 10px; /* Adds spacing between the dropdown and button */
+        align-items: center;
+    }
+
+    .label {
+        color: #e0e0e0;
+        font-weight: bold;
+    }
+
+    .box {
+        background: black;
+        border-radius: 10px;
+        padding: 30px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        color: #e0e0e0;
+    }
+
+    .mt-2 {
+        bottom: 10px;
+        left: 10px;
+    }
+
+    .table {
+        background: transparent;
+        color: #e0e0e0;
+    }
+
+    .table th {
+        background-color: transparent;
+        color: #ffffff;
+    }
+
+    .table td {
+        background-color: transparent;
+    }
+
+    .table tr:nth-child(even) {
+        background-color: transparent;
+    }
+
+    .button {
+        background: linear-gradient(135deg, #fdd835,rgb(217, 159, 11));
+        color:rgb(255, 255, 255);
+        border-radius: 5px;
+        padding: 8px 15px;
+        font-size: 1.1em;
+        transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+
+    .button:hover {
+        transform: scale(1.05);
+        background-color: #fbc02d;
+    }
+
+    .pagination .current {
+        color: #fdd835;
+        font-weight: bold;
+    }
+
+    select {
+        background-color: transparent;
+        color: #e0e0e0;
+        border: 1px solid #bbb;
+        border-radius: 5px;
+        padding: 5px;
+    }
+
+    select:focus {
+        outline: none;
+        border-color: #fdd835;
+    }
+</style>
+
+<h1 class="title">💡 All Environmental Observations</h1>
+
+<!-- Filtering Options -->
+<div class="field">
+    <label class="label">Filter by Observation Type:</label>
+    <div class="control">
+        <form method="get">
+            <div class="select">
+                <select name="type">
+                    <option value="">All</option>
+                    <option value="air_quality" {% if request.GET.type == 'air_quality' %}selected{% endif %}>Air Quality</option>
+                    <option value="water_quality" {% if request.GET.type == 'water_quality' %}selected{% endif %}>Water Quality</option>
+                    <option value="noise_pollution" {% if request.GET.type == 'noise_pollution' %}selected{% endif %}>Noise Pollution</option>
+                    <option value="other" {% if request.GET.type == 'other' %}selected{% endif %}>Other</option>
+                </select>
+            </div>
+            <button class="button is-primary mt-2" type="submit">Filter</button>
+        </form>
+    </div>
+</div>
+
+<!-- List of Observations -->
+<div class="box">
+    {% if page_obj %}
+        <table class="table is-fullwidth">
+            <thead>
+                <tr>
+                    <th style="color: #fdd835;">User</th>
+                    <th style="color: #fdd835;">Observation Type</th>
+                    <th style="color: #fdd835;">Description</th>
+                    <th style="color: #fdd835;">Location</th>
+                    <th style="color: #fdd835;">Timestamp</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for obs in page_obj %}
+                    <tr>
+                        <td>{{ obs.user.username }}</td>
+                        <td>{{ obs.get_observation_type_display }}</td>
+                        <td>{{ obs.description|default:"No description provided" }}</td>
+                        <td>{{ obs.location|default:"Location not provided" }}</td>
+                        <td>{{ obs.timestamp }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No observations found.</p>
+    {% endif %}
+</div>
+
+<!-- Pagination Controls -->
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1{% if request.GET.type %}&type={{ request.GET.type }}{% endif %}" class="button is-small">&laquo; First</a>
+            <a href="?page={{ page_obj.previous_page_number }}{% if request.GET.type %}&type={{ request.GET.type }}{% endif %}" class="button is-small">Previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}{% if request.GET.type %}&type={{ request.GET.type }}{% endif %}" class="button is-small">Next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}{% if request.GET.type %}&type={{ request.GET.type }}{% endif %}" class="button is-small">Last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+{% endblock %}
