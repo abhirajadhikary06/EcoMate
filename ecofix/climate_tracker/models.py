@@ -2,14 +2,11 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class UserProfile(models.Model):
-    """
-    Extends the default User model to add additional user-related fields.
-    """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    points = models.IntegerField(default=0)  # Points earned by the user
+    points = models.PositiveIntegerField(default=0)
 
     def __str__(self):
-        return self.user.username
+        return f"{self.user.username} - {self.points} Points"
 
 
 class UserActivity(models.Model):
@@ -73,4 +70,20 @@ class EnvironmentalObservation(models.Model):
 
     def __str__(self):
         return f"{self.observation_type} by {self.user.username} at {self.location}"
+    
+class ShopItem(models.Model):
+    ITEM_CHOICES = [
+        ("shaker_black", "Gym Shaker (Black)"),
+        ("tshirt_black", "T-Shirt (Black)"),
+        ("tshirt_white", "T-Shirt (White)"),
+        ("bag", "Bag"),
+        ("sticker", "Sticker"),
+    ]
+    name = models.CharField(max_length=50, choices=ITEM_CHOICES, unique=True)
+    points_cost = models.PositiveIntegerField()
+
+class Purchase(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    item = models.ForeignKey(ShopItem, on_delete=models.CASCADE)
+    date_purchased = models.DateTimeField(auto_now_add=True)
     

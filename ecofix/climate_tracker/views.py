@@ -9,7 +9,7 @@ from django.contrib import messages
 from django.core.paginator import Paginator
 from .forms import CustomUserCreationForm, UserActivityForm, GreenActionSimulatorForm, ObservationForm, CustomAuthenticationForm
 from .utils import calculate_carbon_footprint, calculate_sustainability_score, format_chart_data, generate_chat_response
-from .models import UserActivity, UserProfile, SustainabilityScore, EnvironmentalObservation
+from .models import UserActivity, UserProfile, SustainabilityScore, EnvironmentalObservation, ShopItem, Purchase
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404
@@ -192,3 +192,37 @@ def chatbot(request):
         return render(request, 'chatbot.html')
 
     return JsonResponse({'error': 'Invalid request method'}, status=405)
+
+@login_required
+def shopnow(request):
+    user_profile, created = UserProfile.objects.get_or_create(user=request.user)
+    items = ShopItem.objects.all()
+    
+    if request.method == 'POST':
+        item_id = request.POST.get('item_id')
+        try:
+            item = ShopItem.objects.get(id=item_id)
+            
+            if user_profile.points >= item.points_cost:
+                # Deduct points
+                user_profile.points -= item.points_cost
+                user_profile.save()
+                
+                message = f"Successfully redeemed {item.name}!"
+            else:
+                message = "Not enough points to redeem this item."
+        except ShopItem.DoesNotExist:
+            message = "Item not found."
+
+        return render(request, 'shopnow.html', {'items': items, 'user_points': user_profile.points, 'message': message})
+    
+    return render(request, 'shopnow.html', {'items': items, 'user_points': user_profile.points})
+
+@login_required
+def checkout(request, purchase_id):
+    try:
+        purchase = Purchase.objects.get(id=purchase_id, user=request.user)
+    except Purchase.DoesNotExist:
+        return redirect('shopnow')  # If purchase not found, go back to shop
+
+    return render(request, 'checkout.html', {'purchase': purchase})
