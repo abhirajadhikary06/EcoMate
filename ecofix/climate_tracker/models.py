@@ -6,6 +6,7 @@ class UserProfile(models.Model):
     Extends the default User model to add additional user-related fields.
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    points = models.IntegerField(default=0)  # Points earned by the user
 
     def __str__(self):
         return self.user.username
@@ -63,8 +64,8 @@ class EnvironmentalObservation(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     observation_type = models.CharField(max_length=50, choices=OBSERVATION_TYPES)
-    description = models.TextField()
-    location = models.CharField(max_length=255)  # User-provided location
+    description = models.TextField(default="No description provided.")
+    location = models.CharField(max_length=255, null=True)  # User-provided location
     latitude = models.FloatField(null=True, blank=True)  # Automatically generated
     longitude = models.FloatField(null=True, blank=True)  # Automatically generated
     timestamp = models.DateTimeField(auto_now_add=True)
@@ -72,3 +73,4 @@ class EnvironmentalObservation(models.Model):
 
     def __str__(self):
         return f"{self.observation_type} by {self.user.username} at {self.location}"
+    

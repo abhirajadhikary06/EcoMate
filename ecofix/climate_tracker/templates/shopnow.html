@@ -5,15 +5,16 @@
 <p>Your Points: {{ user_points }}</p>
 
 <div>
-    {% for item in shop_items %}
+    <!-- Gym Shaker -->
     <div style="border: 1px solid #ccc; padding: 10px; margin: 10px;">
-        <h3>{{ item.name }}</h3>
-        <p>{{ item.description }}</p>
-        <p>Points Required: {{ item.points_required }}</p>
-        <form action="{% url 'purchase_item' item.id %}" method="post">
+        <img src="/static/images/gym_shaker_black.jpg" alt="Gym Shaker (Black)" style="max-width: 200px;">
+        <h3>Gym Shaker (Black)</h3>
+        <p>Durable gym shaker bottle in black.</p>
+        <p>Points Required: 50</p>
+        <form action="{% url 'purchase_item' item_id=1 %}" method="post">
             {% csrf_token %}
-            <button type="submit" {% if user_points < item.points_required %}disabled{% endif %}>
-                {% if user_points < item.points_required %}
+            <button type="submit" {% if user_points < 50 %}disabled{% endif %}>
+                {% if user_points < 50 %}
                     Not Enough Points
                 {% else %}
                     Purchase
@@ -21,6 +22,77 @@
             </button>
         </form>
     </div>
-    {% endfor %}
+
+    <!-- T-Shirt (Black) -->
+    <div style="border: 1px solid #ccc; padding: 10px; margin: 10px;">
+        <img src="/static/images/tshirt_black.jpg" alt="T-Shirt (Black)" style="max-width: 200px;">
+        <h3>T-Shirt (Black)</h3>
+        <p>Comfortable black T-shirt made from eco-friendly materials.</p>
+        <p>Points Required: 100</p>
+        <form action="{% url 'purchase_item' item_id=2 %}" method="post">
+            {% csrf_token %}
+            <button type="submit" {% if user_points < 100 %}disabled{% endif %}>
+                {% if user_points < 100 %}
+                    Not Enough Points
+                {% else %}
+                    Purchase
+                {% endif %}
+            </button>
+        </form>
+    </div>
+
+    <!-- T-Shirt (White) -->
+    <div style="border: 1px solid #ccc; padding: 10px; margin: 10px;">
+        <img src="/static/images/tshirt_white.jpg" alt="T-Shirt (White)" style="max-width: 200px;">
+        <h3>T-Shirt (White)</h3>
+        <p>Comfortable white T-shirt made from eco-friendly materials.</p>
+        <p>Points Required: 100</p>
+        <form action="{% url 'purchase_item' item_id=3 %}" method="post">
+            {% csrf_token %}
+            <button type="submit" {% if user_points < 100 %}disabled{% endif %}>
+                {% if user_points < 100 %}
+                    Not Enough Points
+                {% else %}
+                    Purchase
+                {% endif %}
+            </button>
+        </form>
+    </div>
+
+    <!-- Bag -->
+    <div style="border: 1px solid #ccc; padding: 10px; margin: 10px;">
+        <img src="/static/images/bag.jpg" alt="Bag" style="max-width: 200px;">
+        <h3>Bag</h3>
+        <p>Reusable tote bag for shopping or daily use.</p>
+        <p>Points Required: 75</p>
+        <form action="{% url 'purchase_item' item_id=4 %}" method="post">
+            {% csrf_token %}
+            <button type="submit" {% if user_points < 75 %}disabled{% endif %}>
+                {% if user_points < 75 %}
+                    Not Enough Points
+                {% else %}
+                    Purchase
+                {% endif %}
+            </button>
+        </form>
+    </div>
+
+    <!-- Sticker -->
+    <div style="border: 1px solid #ccc; padding: 10px; margin: 10px;">
+        <img src="/static/images/sticker.jpg" alt="Sticker" style="max-width: 200px;">
+        <h3>Sticker</h3>
+        <p>Cool eco-themed sticker for your devices.</p>
+        <p>Points Required: 25</p>
+        <form action="{% url 'purchase_item' item_id=5 %}" method="post">
+            {% csrf_token %}
+            <button type="submit" {% if user_points < 25 %}disabled{% endif %}>
+                {% if user_points < 25 %}
+                    Not Enough Points
+                {% else %}
+                    Purchase
+                {% endif %}
+            </button>
+        </form>
+    </div>
 </div>
 {% endblock %}
