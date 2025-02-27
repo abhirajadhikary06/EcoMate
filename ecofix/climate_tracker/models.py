@@ -65,10 +65,26 @@ class EnvironmentalObservation(models.Model):
     observation_type = models.CharField(max_length=50, choices=OBSERVATION_TYPES)
     description = models.TextField()
     location = models.CharField(max_length=255)  # User-provided location
-    latitude = models.FloatField()  # Automatically generated
-    longitude = models.FloatField()  # Automatically generated
+    latitude = models.FloatField(blank=True, null=True)  # Automatically generated
+    longitude = models.FloatField(blank=True, null=True)  # Automatically generated
     timestamp = models.DateTimeField(auto_now_add=True)
     photo = models.ImageField(upload_to='observations/')
 
     def __str__(self):
         return f"{self.observation_type} by {self.user.username} at {self.location}"
+    
+class ShopItem(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField(default="Description Not Provided")
+    points_required = models.IntegerField()
+
+    def __str__(self):
+        return self.name
+
+class Purchase(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    item = models.ForeignKey(ShopItem, on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user.username} purchased {self.item.name}"

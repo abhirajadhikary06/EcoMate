@@ -9,9 +9,10 @@ from django.contrib import messages
 from django.core.paginator import Paginator
 from .forms import CustomUserCreationForm, UserActivityForm, GreenActionSimulatorForm, ObservationForm, CustomAuthenticationForm
 from .utils import calculate_carbon_footprint, calculate_sustainability_score, format_chart_data, generate_chat_response
-from .models import UserActivity, UserProfile, SustainabilityScore, EnvironmentalObservation
+from .models import UserActivity, UserProfile, SustainabilityScore, EnvironmentalObservation, ShopItem, Purchase
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import get_object_or_404
 
 gmaps = googlemaps.Client(key=settings.GOOGLE_MAPS_API_KEY)
 
@@ -123,6 +124,11 @@ def submit_observation(request):
             observation.longitude = longitude
             observation.save()
 
+            # Increment user points
+            user_profile, created = UserProfile.objects.get_or_create(user=request.user)
+            user_profile.points += 1  # Add 1 point per submission
+            user_profile.save()
+
             return redirect('map_view')
     else:
         form = ObservationForm()
@@ -189,4 +195,34 @@ def chatbot(request):
 
 @login_required
 def shopnow(request):
-    return render(request, 'shopnow.html')
+    """
+    Displays all available shop items.
+    """
+    shop_items = ShopItem.objects.all()  # Fetch predefined items
+    user_profile = UserProfile.objects.get(user=request.user)
+    return render(request, 'shopnow.html', {
+        'shop_items': shop_items,
+        'user_points': user_profile.points
+    })
+
+@login_required
+def purchase_item(request, item_id):
+    """
+    Handles purchasing an item and deducting points.
+    """
+    item = get_object_or_404(ShopItem, id=item_id)  # Ensure the item exists
+    user_profile = UserProfile.objects.get(user=request.user)
+
+    if user_profile.points >= item.points_required:
+        # Deduct points
+        user_profile.points -= item.points_required
+        user_profile.save()
+
+        # Record the purchase
+        Purchase.objects.create(user=request.user, item=item)
+
+        messages.success(request, f"You have successfully purchased {item.name}!")
+    else:
+        messages.error(request, "You do not have enough points to purchase this item.")
+
+    return redirect('shopnow')

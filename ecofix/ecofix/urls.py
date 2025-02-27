@@ -19,6 +19,8 @@ urlpatterns = [
     path('all-observations/', views.all_observations, name='all_observations'),
     path('shopnow/', views.shopnow, name='shopnow'),
     path('chatbot/', views.chatbot, name='chatbot'),
+    path('shopnow/', views.shopnow, name='shopnow'),
+    path('purchase/<int:item_id>/', views.purchase_item, name='purchase_item'),
 ]
 
 if settings.DEBUG:
