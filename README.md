@@ -75,7 +75,8 @@ We welcome contributions! Follow these steps:
 
 ## Screenshots & Demo
 
-![Image 1](https://i.ibb.co/M52bB45/image.png)
+![Image 1](![image](https://github.com/user-attachments/assets/1e9684c1-3afe-46cb-ac19-7564fecccd2b)
+)
 ![Image 2](https://i.ibb.co/VdkbTwN/image.png)
 ![Image 3](https://i.ibb.co/Y4k8J7z/image.png)
 ![Image 4](https://i.ibb.co/W4hmWpT/image.png)
