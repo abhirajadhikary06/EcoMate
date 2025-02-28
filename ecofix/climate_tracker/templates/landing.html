@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+/* styles.css */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    overflow-x: hidden;
+}
+header {
+    position: absolute;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    color: white;
+    z-index: 10;
+}
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+    perspective: 1000px;
+    background: linear-gradient(135deg, rgb(0, 0, 0), rgb(15, 60, 5), rgb(0, 0, 0));
+}
+/* Layered 3D Background */
+.hero::before, .hero::after {
+    content: "";
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    top: -50%;
+    left: -50%;
+    background: linear-gradient(135deg, rgb(0, 0, 0), rgb(15, 60, 5), rgb(0, 0, 0));
+    z-index: 1;
+    animation: moveBackground 10s linear infinite;
+}
+
+.hero::after {
+    background: linear-gradient(135deg, rgb(0, 0, 0), rgb(15, 60, 5), rgb(0, 0, 0));
+    animation: moveBackground 8s linear infinite reverse;
+}
+
+.overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 2;
+    pointer-events: none; /* Ensures clicks pass through */
+}
+
+/* 3D Depth Animation */
+@keyframes moveBackground {
+    0% { transform: rotate(0deg) scale(1.2); }
+    50% { transform: rotate(5deg) scale(1.3); }
+    100% { transform: rotate(0deg) scale(1.2); }
+}
+
+/* Mouse Move 3D Effect */
+body {
+    perspective: 1000px;
+}
+.hero .content {
+    transform-style: preserve-3d;
+    transition: transform 0.1s ease-out;
+}
+
+body:hover .content {
+    transform: rotateX(5deg) rotateY(5deg);
+}
+
+.content {
+    position: relative;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Ensures all elements inside are centered */
+    gap: 20px; /* Adds spacing between elements */
+    z-index: 3;
+}
+
+h1 {
+    font-size: 4rem;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 2px solid white;
+    display: inline-block;
+    animation: typewriter 3s steps(30) 1s forwards, blink 0.8s infinite;
+    
+}
+p {
+    font-size: 1.5rem;
+    max-width: 600px;
+    margin: 20px auto;
+}
+        /* Button Styles */
+    
+        button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px 40px;
+            border-radius: 10px;
+            color: black;  /* Text color */
+            font-size: 24px;
+            text-align: center;
+            text-decoration: none;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            min-width: 180px;
+            min-height: 60px;
+            background-color: white; /* White background */
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            border: none; /* Remove border for a clean look */
+        }
+    
+        /* Button Gradient Colors */
+        button.is-primary {
+            background: linear-gradient(135deg, #4a90e2, #357abd);
+        }
+    
+        button.is-info {
+            background: linear-gradient(135deg, #29b6f6, #0288d1);
+        }
+    
+        button.is-warning {
+            background: linear-gradient(135deg, #ffb74d, #ff9800);
+        }
+    
+        button.is-link {
+            background: linear-gradient(135deg, #81c784, #388e3c);
+        }
+    
+        button:hover {
+            transform: scale(1.1);  /* Slightly larger hover effect for emphasis */
+            background-color: #ff0000;
+        }
+@keyframes typewriter {
+    from { width: 0; }
+    to { width: 100%; }
+}
+@keyframes blink {
+    50% { border-color: transparent; }
+}
+
+    </style>
+</head>
+<body>
+    
+    <section class="hero">
+        <div class="overlay"></div>
+        <div class="content">
+            <h1 id="typewriter"></h1>
+            <p>Track your environmental impact and embrace sustainability effortlessly! ♻️</p>
+            <button onclick="window.location.href='{% url 'login' %}'">Start</button> <!-- Link to login page -->
+        </div>
+    </section>
+
+    <script>
+/* script.js */
+const text = "WELCOME TO ECOMATE";
+let index = 0;
+function typeEffect() {
+    document.getElementById("typewriter").textContent = text.substring(0, index);
+    index++;
+    if (index <= text.length) {
+        setTimeout(typeEffect, 100);
+    }
+}
+typeEffect();
+
+document.addEventListener("mousemove", (e) => {
+    const hero = document.querySelector(".hero .content");
+    let xAxis = (window.innerWidth / 2 - e.pageX) / 60;
+    let yAxis = (window.innerHeight / 2 - e.pageY) / 60;
+    
+    hero.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+});
+    </script>
+    
+</body>
+</html>
