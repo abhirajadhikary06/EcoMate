@@ -76,7 +76,13 @@ We welcome contributions! Follow these steps:
 
 ## Screenshots & Demo
 
-<img src="https://imagekit.io/tools/asset-public-link?detail=%7B%22name%22%3A%22Screenshot%202568-02-28%20at%209.33.51%E2%80%AFAM.png%22%2C%22type%22%3A%22image%2Fpng%22%2C%22signedurl_expire%22%3A%222028-02-28T04%3A40%3A23.492Z%22%2C%22signedUrl%22%3A%22https%3A%2F%2Fmedia-hosting.imagekit.io%2F%2F7e10f507691a4097%2FScreenshot%25202568-02-28%2520at%25209.33.51%25E2%2580%25AFAM.png%3FExpires%3D1835325623%26Key-Pair-Id%3DK2ZIVPTIP2VGHC%26Signature%3DLCjXuv0M5TlVV1rNcw0g6UpnoA56kC17Auh8J8Y1dvnOPoGZm2mk~ktQPyt7XaOvO-6vayTV0-DoUPYWeyrE413MuIC0Mpidia7q-JwpD2-9qORmuQylQm7WCDPWQZMFq6IeQ10LauzO2Fc2hn2X1a5vd5Za0zGbitJeZgPx3gjHuIbzwWQzrqWpxe-l~rCRotDJy~adX5yN-AHVmYV392RFJeY1QysMBnfHriO~~lN7ANJQBhHcdkPiufEbg7hXSMP-lVpb~0M3IUt10WGo7QUuv1KF2-OK6gqtC~~rh4R~~Adze4dKd6lqAGotmvTHqK91yehrtYlz49utq11iKA__%22%7D" alt="My Image" width="300">
+<img src="https://i.ibb.co/M52bB45r" alt="Image 1" width="300">
+<img src="https://i.ibb.co/VdkbTwN" alt="Image 2" width="300">
+<img src="https://i.ibb.co/Y4k8J7zj" alt="Image 3" width="300">
+<img src="https://i.ibb.co/W4hmWpTx" alt="Image 4" width="300">
+<img src="https://i.ibb.co/G3MfJ1Vv" alt="Image 5" width="300">
+<img src="https://i.ibb.co/xqPgr3bF" alt="Image 6" width="300">
+<img src="https://i.ibb.co/1JRZk4rh" alt="Image 7" width="300">
 
 ## License
 
