@@ -75,13 +75,11 @@ We welcome contributions! Follow these steps:
 
 ## Screenshots & Demo
 
-![Image 1](![image](https://github.com/user-attachments/assets/1e9684c1-3afe-46cb-ac19-7564fecccd2b)
-)
-![Image 2](https://i.ibb.co/VdkbTwN/image.png)
-![Image 3](https://i.ibb.co/Y4k8J7z/image.png)
-![Image 4](https://i.ibb.co/W4hmWpT/image.png)
-![Image 5](https://i.ibb.co/G3MfJ1V/image.png)
-![Image 6](https://i.ibb.co/xqPgr3b/image.png)
-![Image 7](https://i.ibb.co/1JRZk4r/image.png)
+![image](https://github.com/user-attachments/assets/5b1f1d7b-cabf-44d3-905f-616ce381496c)
+![image](https://github.com/user-attachments/assets/3e368eff-3dbd-42ac-a287-3c5529a70f93)
+![image](https://github.com/user-attachments/assets/807eba48-f8f3-4bd7-a70d-8b16735a3475)
+![image](https://github.com/user-attachments/assets/f12f6280-687c-41b1-a9b6-3ed70a40aeef)
+![image](https://github.com/user-attachments/assets/599c478f-521b-4bbf-9707-f91bc1435ece)
+![image](https://github.com/user-attachments/assets/14d4f8d7-5ec4-4f59-82b4-6a482e87860e)
 
 ---
