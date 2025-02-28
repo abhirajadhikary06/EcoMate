@@ -10,7 +10,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Submit Observation - EcoMate</title>
     <style>
-
         /* Dark Gradient Background */
         body {
             background: linear-gradient(135deg, rgb(0, 0, 0), rgb(15, 60, 5), rgb(0, 0, 0));
@@ -98,17 +97,46 @@
             text-align: center;
         }
 
+        .message {
+            background-color: #81c784;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            text-align: center;
+            display: none; /* Initially hidden */
+        }
     </style>
 </head>
 <body>
 
     <h1 class="title">Submit an Environmental Observation</h1>
 
+    {% if messages %}
+        <div class="message" id="message">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </div>
+    {% endif %}
+
     <form method="post" enctype="multipart/form-data" class="box">
         {% csrf_token %}
         {{ form.as_p }}
         <button class="button" type="submit">Submit Observation</button>
     </form>
+
+    <script>
+        // Show the message if it exists
+        const messageElement = document.getElementById('message');
+        if (messageElement) {
+            messageElement.style.display = 'block';
+            // Hide the message after 5 seconds
+            setTimeout(() => {
+                messageElement.style.display = 'none';
+            }, 2000);
+        }
+    </script>
 
 </body>
 </html>

@@ -37,6 +37,16 @@
         }
 
         /* Content Styling */
+        .shop-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
         .shop-item {
             background: #2c2c2c;
             border-radius: 10px;
@@ -50,7 +60,9 @@
         }
 
         .shop-item img {
-            max-width: 200px;
+            width: 100%;
+            height: 200px; /* Set a fixed height for the images */
+            object-fit: contain; /* Ensure the entire image is visible without distortion */
             border-radius: 10px;
             margin-bottom: 10px;
         }
@@ -68,7 +80,7 @@
         }
 
         .shop-item form {
-            margin-top: 10px;
+            margin-top: auto; /* Push the button to the bottom */
         }
 
         .shop-item button {
@@ -91,24 +103,58 @@
             display: flex;
             align-items: center;
             margin: 20px 0;
+            justify-content: center; /* Center horizontally */
         }
 
         .points-container img {
-            width: 30px;
-            height: 30px;
+            width: 50px; /* Increase the size of the coin */
+            height: 50px; /* Increase the size of the coin */
             margin-right: 10px;
         }
 
         .points-container p {
             margin: 0;
-            font-size: 1.2em;
+            font-size: 1.5em; /* Increase the font size */
+        }
+
+        @media (max-width: 768px) {
+            .shop-item {
+                width: calc(100% - 40px); /* Adjust width to fit one item per row on smaller screens */
+            }
+        }
+
+        /* Popup Animation */
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, #f3f6fa, #6d7176);
+            color: black;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            display: none;
+            z-index: 1000;
+            animation: popupAnimation 0.5s ease-out forwards;
+        }
+
+        @keyframes popupAnimation {
+            0% {
+                transform: translate(-50%, -50%) scale(0.5);
+                opacity: 0;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
         }
     </style>
 
     <h1 class="title">🛒 EcoMate Shop</h1>
     <div class="points-container">
         <img id="points-image" src="https://i.ibb.co/N6YXmyFH/e.png" alt="Points">
-        <p> {{ user_points }}</p>
+        <p id="user-points">{{ user_points }}</p>
     </div>
 
     <script>
@@ -124,12 +170,47 @@
         }
 
         setInterval(rotateImage, 3000); // Change image every 3 seconds
+
+        function showPopup(message) {
+            const popup = document.createElement('div');
+            popup.className = 'popup';
+            popup.innerText = message;
+            document.body.appendChild(popup);
+            popup.style.display = 'block';
+            setTimeout(() => {
+                popup.style.display = 'none';
+                document.body.removeChild(popup);
+            }, 2000); // Hide after 2 seconds
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const redeemButtons = document.querySelectorAll('.shop-item button');
+            const userPointsElement = document.getElementById('user-points');
+            const userPoints = parseInt(userPointsElement.innerText);
+
+            redeemButtons.forEach(button => {
+                button.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    const itemCost = parseInt(button.closest('.shop-item').querySelector('p').innerText.split(' ')[1]);
+
+                    if (userPoints < itemCost) {
+                        showPopup('Not enough coins to redeem this item.');
+                    } else {
+                        showPopup('Item Added for Checkout!');
+                        // Simulate form submission
+                        setTimeout(() => {
+                            button.closest('form').submit();
+                        }, 2000); // Submit form after 2 seconds
+                    }
+                });
+            });
+        });
     </script>
 
-        {% if message %}
+    {% if message %}
         <p>{{ message }}</p>
-        {% endif %}
-        <div class="shop-container">
+    {% endif %}
+    <div class="shop-container">
         {% for item in items %}
             <div class="shop-item">
                 <img src="{{ item.image }}" alt="{{ item.name }}"> <!-- Use item.image directly -->
@@ -142,5 +223,5 @@
                 </form>
             </div>
         {% endfor %}
-        </div>
+    </div>
 {% endblock %}

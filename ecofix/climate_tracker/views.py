@@ -132,7 +132,9 @@ def submit_observation(request):
             user_profile.points += 1  # Add 1 point per submission
             user_profile.save()
 
-            return redirect('map_view')
+            # Show success message
+            messages.success(request, 'Received 1 EC coin for successful submission.')
+
     else:
         form = ObservationForm()
     return render(request, 'submit_observation.html', {'form': form})

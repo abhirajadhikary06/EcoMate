@@ -31,7 +31,7 @@
         }
 
         p {
-            color:white;
+            color: white;
         }
     
         p.subtitle {
@@ -80,13 +80,29 @@
             transform: scale(1.1);
             background-color: #fbc02d;
         }
+
+        .gif-container {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .gif-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
     </style>
 
     <div class="box">
         <h1 class="title">Thank You!</h1>
         <p>Your goodies will be delivered to:</p>
         <address>{{ address }}</address>
-        <p>Enjoy your reward! 🎉</p>
+        <p>Enjoy your reward!</p>
+        <div class="gif-container">
+            <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExOXZ4ZGt2enZudDgyeHYzZzBienpjNzZxa2thMjQyamp6YnFrcmY5NSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/6gT5hWNOZxkVq/giphy.gif" alt="Enjoy your reward!">
+        </div>
         <a class="button" href="{% url 'shopnow' %}">Back to Shop</a>
     </div>
 {% endblock %}
