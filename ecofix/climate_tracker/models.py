@@ -75,7 +75,14 @@ class ShopItem(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
     points_cost = models.IntegerField()
-    image = models.ImageField(upload_to='items/')
+    image = models.ImageField(upload_to='items/', blank=True, null=True)  # For local images
+    image_url = models.URLField(blank=True, null=True)  # For external images
+
+    def get_image(self):
+        """Return the image URL, prioritizing the local image if available."""
+        if self.image:
+            return self.image.url
+        return self.image_url
 
     def __str__(self):
         return self.name

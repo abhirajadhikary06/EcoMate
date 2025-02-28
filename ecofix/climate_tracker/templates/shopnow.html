@@ -37,19 +37,6 @@
         }
 
         /* Content Styling */
-        .shop-container {
-            background: linear-gradient(135deg, #1b1b1b, #35424a);
-            border-radius: 10px;
-            padding: 30px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-            width: 100%;
-            max-width: 800px;
-            margin: 20px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
         .shop-item {
             background: #2c2c2c;
             border-radius: 10px;
@@ -99,19 +86,53 @@
             transform: scale(1.1);
             background-color: #fbc02d;
         }
+
+        .points-container {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .points-container img {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+        }
+
+        .points-container p {
+            margin: 0;
+            font-size: 1.2em;
+        }
     </style>
 
-    <h1 class="title">EcoMate Shop</h1>
-    <p>Your Points: {{ user_points }}</p>
+    <h1 class="title">🛒 EcoMate Shop</h1>
+    <div class="points-container">
+        <img id="points-image" src="https://i.ibb.co/N6YXmyFH/e.png" alt="Points">
+        <p> {{ user_points }}</p>
+    </div>
 
-    {% if message %}
+    <script>
+        const images = [
+            "https://i.ibb.co/N6YXmyFH/e.png",
+            "https://i.ibb.co/4xxjksG/c.png"
+        ];
+        let currentIndex = 0;
+
+        function rotateImage() {
+            currentIndex = (currentIndex + 1) % images.length;
+            document.getElementById('points-image').src = images[currentIndex];
+        }
+
+        setInterval(rotateImage, 3000); // Change image every 3 seconds
+    </script>
+
+        {% if message %}
         <p>{{ message }}</p>
-    {% endif %}
-
-    <div class="shop-container">
+        {% endif %}
+        <div class="shop-container">
         {% for item in items %}
             <div class="shop-item">
-                <img src="{{ item.image.url }}" alt="{{ item.name }}">
+                <img src="{{ item.image }}" alt="{{ item.name }}"> <!-- Use item.image directly -->
                 <h2>{{ item.name }}</h2>
                 <p>Cost: {{ item.points_cost }} points</p>
                 <form method="post">
@@ -121,5 +142,5 @@
                 </form>
             </div>
         {% endfor %}
-    </div>
+        </div>
 {% endblock %}
