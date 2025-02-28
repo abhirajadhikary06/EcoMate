@@ -76,13 +76,14 @@ We welcome contributions! Follow these steps:
 
 ## Screenshots & Demo
 
-<img src="https://i.ibb.co/M52bB45r" alt="Image 1" width="300">
-<img src="https://i.ibb.co/VdkbTwN" alt="Image 2" width="300">
-<img src="https://i.ibb.co/Y4k8J7zj" alt="Image 3" width="300">
-<img src="https://i.ibb.co/W4hmWpTx" alt="Image 4" width="300">
-<img src="https://i.ibb.co/G3MfJ1Vv" alt="Image 5" width="300">
-<img src="https://i.ibb.co/xqPgr3bF" alt="Image 6" width="300">
-<img src="https://i.ibb.co/1JRZk4rh" alt="Image 7" width="300">
+![Image 1](https://i.ibb.co/M52bB45/image.png)
+![Image 2](https://i.ibb.co/VdkbTwN/image.png)
+![Image 3](https://i.ibb.co/Y4k8J7z/image.png)
+![Image 4](https://i.ibb.co/W4hmWpT/image.png)
+![Image 5](https://i.ibb.co/G3MfJ1V/image.png)
+![Image 6](https://i.ibb.co/xqPgr3b/image.png)
+![Image 7](https://i.ibb.co/1JRZk4r/image.png)
+
 
 ## License
 
