@@ -55,3 +55,6 @@ class ObservationForm(forms.ModelForm):
     class Meta:
         model = EnvironmentalObservation
         fields = ['observation_type', 'description', 'location', 'photo']
+        widgets = {
+            'location': forms.TextInput(attrs={'placeholder': 'Enter location or use current location'}),
+        }
