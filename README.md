@@ -76,7 +76,7 @@ We welcome contributions! Follow these steps:
 
 ## Screenshots & Demo
 
-![EcoMate Demo](![image](https://github.com/user-attachments/assets/777e5504-4224-41e4-84be-bf7174f8aa6a)
+![EcoMate Demo](![image]([https://github.com/user-attachments/assets/777e5504-4224-41e4-84be-bf7174f8aa6a](https://imagekit.io/tools/asset-public-link?detail=%7B%22name%22%3A%22Screenshot%202568-02-28%20at%209.31.02%E2%80%AFAM.png%22%2C%22type%22%3A%22image%2Fpng%22%2C%22signedurl_expire%22%3A%222028-02-28T04%3A40%3A23.502Z%22%2C%22signedUrl%22%3A%22https%3A%2F%2Fmedia-hosting.imagekit.io%2F%2Fb6c8e34b1cdb46ec%2FScreenshot%25202568-02-28%2520at%25209.31.02%25E2%2580%25AFAM.png%3FExpires%3D1835325624%26Key-Pair-Id%3DK2ZIVPTIP2VGHC%26Signature%3Dl9cFIrbVHLNo0DqqRyUMktMEziYj8wlBAKKLalIEAOuA6bH6VT3gcLfsm0qio15OYwvpxmBQlWdYGFuRW78ei1wGVOBsqV6sAQn6MKPNLwqKLITFfXp3GRvTdEu9k7UAk18EOV49srdPeL-GDvvau7FW0VR4y2Ifc-bHwA~oVME5GyWmPfhIYi~3I9Vxts4v61XQmatb2HE1qXNWHtA1-pm25vN8oPkL2ELpDhVycGezlaOjC7bGKbahWCLdGwPXQRv7PqqNmgJqYq4ksjk5CSpH0D7E~~xxysG3GNLZbiofmR9OHVKNlRjHwV-QS4pxRSMJT3KiOPNynvx-K~9hUA__%22%7D))
 )
 
 ## License
