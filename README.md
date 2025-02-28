@@ -6,9 +6,8 @@ EcoMate is a sustainable e-commerce platform designed to promote eco-friendly pr
 
 - 🛍️ **Eco-Friendly Products** – A curated selection of sustainable and environmentally friendly products.
 - 🔍 **Advanced Search & Filters** – Easily find products based on categories, ratings, and eco-certifications.
-- 🛒 **Shopping Cart & Checkout** – Seamless buying experience with secure payment options.
+- 🛒 **Shopping Checkout** – Seamless buying experience with secure payment options.
 - 🌍 **Carbon Footprint Tracker** – Track the environmental impact of your purchases.
-- 🛠 **Admin Panel** – Manage products, users, and orders efficiently.
 
 ## Installation
 
@@ -17,7 +16,7 @@ EcoMate is a sustainable e-commerce platform designed to promote eco-friendly pr
 Ensure you have the following installed:
 - Python 3.8+
 - Django
-- PostgreSQL (or SQLite for development)
+- SQLite
 - Git
 
 ### Steps
@@ -54,8 +53,7 @@ Ensure you have the following installed:
 
 1. **Browse** – Explore various eco-friendly products.
 2. **Search & Filter** – Find products based on your preferences.
-3. **Add to Cart** – Select products and proceed to checkout.
-4. **Track Impact** – Monitor your environmental footprint.
+3. **Track Impact** – Monitor your environmental footprint.
 
 ## Contribution
 
@@ -78,7 +76,8 @@ We welcome contributions! Follow these steps:
 
 ## Screenshots & Demo
 
-![EcoMate Demo](https://github.com/abhirajadhikary06/EcoMate/blob/main/assets/demo.gif)
+![EcoMate Demo](![image](https://github.com/user-attachments/assets/777e5504-4224-41e4-84be-bf7174f8aa6a)
+)
 
 ## License
 
