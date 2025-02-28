@@ -1,4 +1,4 @@
-# EcoMate
+[# EcoMate
 
 EcoMate is a sustainable e-commerce platform designed to promote eco-friendly products. Our mission is to encourage responsible consumerism by providing a marketplace for green and sustainable goods.
 
@@ -76,12 +76,10 @@ We welcome contributions! Follow these steps:
 
 ## Screenshots & Demo
 
-![EcoMate Demo](![image]([https://github.com/user-attachments/assets/777e5504-4224-41e4-84be-bf7174f8aa6a](https://imagekit.io/tools/asset-public-link?detail=%7B%22name%22%3A%22Screenshot%202568-02-28%20at%209.31.02%E2%80%AFAM.png%22%2C%22type%22%3A%22image%2Fpng%22%2C%22signedurl_expire%22%3A%222028-02-28T04%3A40%3A23.502Z%22%2C%22signedUrl%22%3A%22https%3A%2F%2Fmedia-hosting.imagekit.io%2F%2Fb6c8e34b1cdb46ec%2FScreenshot%25202568-02-28%2520at%25209.31.02%25E2%2580%25AFAM.png%3FExpires%3D1835325624%26Key-Pair-Id%3DK2ZIVPTIP2VGHC%26Signature%3Dl9cFIrbVHLNo0DqqRyUMktMEziYj8wlBAKKLalIEAOuA6bH6VT3gcLfsm0qio15OYwvpxmBQlWdYGFuRW78ei1wGVOBsqV6sAQn6MKPNLwqKLITFfXp3GRvTdEu9k7UAk18EOV49srdPeL-GDvvau7FW0VR4y2Ifc-bHwA~oVME5GyWmPfhIYi~3I9Vxts4v61XQmatb2HE1qXNWHtA1-pm25vN8oPkL2ELpDhVycGezlaOjC7bGKbahWCLdGwPXQRv7PqqNmgJqYq4ksjk5CSpH0D7E~~xxysG3GNLZbiofmR9OHVKNlRjHwV-QS4pxRSMJT3KiOPNynvx-K~9hUA__%22%7D))
-)
+<img src="https://imagekit.io/tools/asset-public-link?detail=%7B%22name%22%3A%22Screenshot%202568-02-28%20at%209.33.51%E2%80%AFAM.png%22%2C%22type%22%3A%22image%2Fpng%22%2C%22signedurl_expire%22%3A%222028-02-28T04%3A40%3A23.492Z%22%2C%22signedUrl%22%3A%22https%3A%2F%2Fmedia-hosting.imagekit.io%2F%2F7e10f507691a4097%2FScreenshot%25202568-02-28%2520at%25209.33.51%25E2%2580%25AFAM.png%3FExpires%3D1835325623%26Key-Pair-Id%3DK2ZIVPTIP2VGHC%26Signature%3DLCjXuv0M5TlVV1rNcw0g6UpnoA56kC17Auh8J8Y1dvnOPoGZm2mk~ktQPyt7XaOvO-6vayTV0-DoUPYWeyrE413MuIC0Mpidia7q-JwpD2-9qORmuQylQm7WCDPWQZMFq6IeQ10LauzO2Fc2hn2X1a5vd5Za0zGbitJeZgPx3gjHuIbzwWQzrqWpxe-l~rCRotDJy~adX5yN-AHVmYV392RFJeY1QysMBnfHriO~~lN7ANJQBhHcdkPiufEbg7hXSMP-lVpb~0M3IUt10WGo7QUuv1KF2-OK6gqtC~~rh4R~~Adze4dKd6lqAGotmvTHqK91yehrtYlz49utq11iKA__%22%7D" alt="My Image" width="300">
 
 ## License
 
 This project is licensed under the MIT License.
 
 ---
-🌱 *Let's build a sustainable future together with EcoMate!* 🌱
