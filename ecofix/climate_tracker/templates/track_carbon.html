@@ -140,6 +140,16 @@
         </div>
     </div>
     <div class="field">
+        <label class="label">{{ form.distance_travelled.label }}</label>
+        <div class="control">
+            {{ form.distance_travelled }}
+            <p class="help">{{ form.distance_travelled.help_text }}</p>
+            {% if form.distance_travelled.errors %}
+                <p class="help is-danger">{{ form.distance_travelled.errors.0 }}</p>
+            {% endif %}
+        </div>
+    </div>
+    <div class="field">
         <label class="label">{{ form.diet.label }}</label>
         <div class="control">
             {{ form.diet }}
@@ -158,16 +168,7 @@
             {% endif %}
         </div>
     </div>
-    <div class="field">
-        <label class="label">{{ form.distance_travelled.label }}</label>
-        <div class="control">
-            {{ form.distance_travelled }}
-            <p class="help">{{ form.distance_travelled.help_text }}</p>
-            {% if form.distance_travelled.errors %}
-                <p class="help is-danger">{{ form.distance_travelled.errors.0 }}</p>
-            {% endif %}
-        </div>
-    </div>
+   
     <button class="button is-primary" type="submit" style="color: black;">Calculate Carbon Footprint</button>
     <button class="button-green" type="button" onclick="window.location.href='{% url "calculate_sustainability" %}'">
         Check Sustainability Score
