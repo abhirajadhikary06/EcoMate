@@ -8,10 +8,11 @@ from django.conf.urls.static import static
 from django.contrib.auth.views import LoginView, LogoutView
 
 urlpatterns = [
+    path('', views.landing, name='landing'),
     path('register/', views.register, name='register'),
     path('login/', LoginView.as_view(template_name='login.html'), name='login'),
     path('logout/', views.user_logout, name='logout'),
-    path('', views.home, name='home'),
+    path('home/', views.home, name='home'),  # Moved 'home' to '/home/'
     path('track-carbon/', views.track_carbon_footprint, name='track_carbon'),
     path('sustainability-score/', views.calculate_sustainability, name='calculate_sustainability'),
     path('submit-observation/', views.submit_observation, name='submit_observation'),

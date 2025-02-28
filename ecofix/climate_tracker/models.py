@@ -31,8 +31,9 @@ class UserActivity(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     transportation = models.CharField(max_length=50, choices=TRANSPORTATION_CHOICES)
     diet = models.CharField(max_length=50, choices=DIET_CHOICES)
-    energy_usage = models.FloatField(help_text="Energy usage in kWh/day. Must be between 0 and 100.")
+    energy_usage = models.FloatField(help_text="Energy usage in kWh/day. Must be between 0 and 100.", default=0)
     date = models.DateField(auto_now_add=True)
+    distance_travelled = models.FloatField(help_text="Distance travelled in kms.", default=0)
 
     def __str__(self):
         return f"{self.user.username} - {self.date}"

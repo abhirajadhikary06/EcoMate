@@ -19,7 +19,7 @@ class UserActivityForm(forms.ModelForm):
     """
     class Meta:
         model = UserActivity
-        fields = ['transportation', 'diet', 'energy_usage']
+        fields = ['transportation', 'diet', 'energy_usage', 'distance_travelled']
 
     def clean_energy_usage(self):
         """

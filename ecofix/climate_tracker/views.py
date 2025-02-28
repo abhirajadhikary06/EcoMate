@@ -16,6 +16,9 @@ from django.shortcuts import get_object_or_404
 
 gmaps = googlemaps.Client(key=settings.GOOGLE_MAPS_API_KEY)
 
+def landing(request):
+    return render(request, 'landing.html')
+
 # Registration View
 def register(request):
     if request.method == 'POST':
@@ -60,7 +63,7 @@ def track_carbon_footprint(request):
             activity.save()
 
             # Prepare user input for carbon footprint calculation
-            user_input = f"Transportation: {activity.transportation}, Diet: {activity.diet}, Energy Usage: {activity.energy_usage} kWh/day"
+            user_input = f"Transportation: {activity.transportation}, Diet: {activity.diet}, Energy Usage: {activity.energy_usage} kWh/day, Distance Travelled: {activity.distance_travelled} kms"
 
             try:
                 # Calculate and parse the carbon footprint
@@ -165,7 +168,7 @@ def all_observations(request):
 @login_required
 def user_logout(request):
     logout(request)
-    return redirect('login')
+    return redirect('landing')
 
 import logging
 
